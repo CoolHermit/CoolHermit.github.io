@@ -130,7 +130,7 @@ function sidebar_toggle() {
         <div class="book-content">
           <div class="book-post">
   <h1 id="关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？"><a href="#关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？" class="headerlink" title="关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？"></a>关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？</h1><p>(1) 修改hexo中 _config.yml 文件：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">http://yoursite.com</span></span><br><span class="line"><span class="comment"># root 后面写你 github 仓库的名字，前后斜杠都不能省！</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/XXX.github.io/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">http://yoursite.com</span></span><br><span class="line"><span class="comment"># root 后面写你 github 仓库的名字</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/XXX.github.io</span></span><br></pre></td></tr></table></figure>
 
 <p>(2) 重新上传</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g </span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
