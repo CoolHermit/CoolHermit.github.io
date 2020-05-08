@@ -59,7 +59,10 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
     <div class="book-menu">
   <ul>
-<li><a href="/CoolHermit.github.io/home">Home</a></li>
+<li><a href="/CoolHermit.github.io/home">Home</a>  </li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><a href="/CoolHermit.github.io/database/mysql">MySQL</a></li>
 </ul>
 <h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><ul>
 <li><a href="/CoolHermit.github.io/java/java-manual">Java手册[自查]</a></li>
@@ -129,7 +132,286 @@ function sidebar_toggle() {
         </div>
         <div class="book-content">
           <div class="book-post">
-  <h3 id="1-日期与时间"><a href="#1-日期与时间" class="headerlink" title="1.日期与时间"></a>1.日期与时间</h3><h3 id="2-多线程"><a href="#2-多线程" class="headerlink" title="2.多线程"></a>2.多线程</h3>
+  <h1 id="1-反射"><a href="#1-反射" class="headerlink" title="1.反射"></a>1.反射</h1><h2 id="1-类封装与反射"><a href="#1-类封装与反射" class="headerlink" title="1.*类封装与反射"></a>1.*类封装与反射</h2><table>
+<thead>
+<tr>
+<th>类封装</th>
+<th>反射</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正常情况下，我们总是通过<code>p.name</code>来访问<code>Person</code>的<code>name</code>字段，编译器会根据<code>public</code>、<code>protected</code>和<code>private</code>决定是否允许访问字段</td>
+<td>一种非常规的用法,会破坏对象的封装，使用反射，首先代码非常繁琐，其次，它更多地是给工具或者底层框架来使用，目的是在不知道目标实例任何信息的情况下，获取特定字段的值</td>
+</tr>
+<tr>
+<td></td>
+<td><code>setAccessible(true)</code>可能会失败。如果JVM运行期存在<code>SecurityManager</code>，那么它会根据规则进行检查，有可能阻止<code>setAccessible(true)</code>。例如，某个<code>SecurityManager</code>可能不允许对<code>java</code>和<code>javax</code>开头的<code>package</code>的类调用<code>setAccessible(true)</code>，这样可以保证JVM核心库的安全</td>
+</tr>
+</tbody></table>
+<p>除byte,char,short,int ,long,float.double.boolean这些基本数据类型外，Java的其他类型全部都是<code>class</code>（包括<code>interface</code>），如String，String[],Exception等。同时JVM为每一种基本类型，如int，也创建了<code>Class</code>，通过<code>int.class</code>访问(<em>其clazz.isPrimitive()的返回结果为true</em>)</p>
+<h2 id="1-1-Class"><a href="#1-1-Class" class="headerlink" title="1.1 Class"></a>1.1 Class</h2><h3 id="1-1-1-如何获取一个class的Class实例？"><a href="#1-1-1-如何获取一个class的Class实例？" class="headerlink" title="1.1.1 如何获取一个class的Class实例？"></a>1.1.1 如何获取一个class的Class实例？</h3><table>
+<thead>
+<tr>
+<th>1.通过一个<code>class</code>的静态变量<code>class</code>获取</th>
+<th>Class cls = String.class;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2.通过该实例变量提供的<code>getClass()</code>方法获取^前提:存在一个实例变量^</td>
+<td>String s = “Hello”; Class cls = s.getClass();</td>
+</tr>
+<tr>
+<td>3.通过静态方法<code>Class.forName()</code>获取^前提:知道一个<code>class</code>的完整类名^</td>
+<td>Class cls = Class.forName(“java.lang.String”);</td>
+</tr>
+</tbody></table>
+<h3 id="1-1-2-Class实例比较和instanceof的区别"><a href="#1-1-2-Class实例比较和instanceof的区别" class="headerlink" title="1.1.2 Class实例比较和instanceof的区别"></a>1.1.2 <code>Class</code>实例比较和<code>instanceof</code>的区别</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>instanceof</th>
+<th><code>Class</code>实例比较</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Integer n = new Integer(123);<br/>boolean b1 = n instanceof Integer; // true <br/>boolean b2 = n instanceof Number; // true<br/> boolean b3 = n.getClass() == Integer.class; // true<br/>boolean b4 = n.getClass() == Number.class; // false</td>
+<td>不但匹配指定类型，还匹配指定类型的子类</td>
+<td>用<code>==</code>判断<code>class</code>实例可以精确地判断数据类型，但不能作子类型比较</td>
+</tr>
+</tbody></table>
+<p>​        <strong>通常情况下，我们应该用<code>instanceof</code>判断数据类型，因为面向抽象编程的时候，我们不关心具体的子类型。只有在需要精确判断一个类型是不是某个<code>class</code>的时候，我们才使用<code>==</code>判断<code>class</code>实例</strong></p>
+<h3 id="1-1-3-创建实例-newInstance"><a href="#1-1-3-创建实例-newInstance" class="headerlink" title="1.1.3 创建实例 newInstance()"></a>1.1.3 创建实例 newInstance()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过Class.newInstance()可以创建类实例，它的局限是：只能调用public的无参数构造方法。带参数的构造方法，或者非public的构造方法都无法通过Class.newInstance()被调用。</span></span><br><span class="line"><span class="comment">//获取</span></span><br><span class="line">Class cls = String<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line"><span class="comment">//创建</span></span><br><span class="line">String s = (String) cls.newInstance();</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-1-4-动态加载"><a href="#1-1-4-动态加载" class="headerlink" title="1.1.4 动态加载"></a>1.1.4 动态加载</h3><blockquote>
+<p>VM在执行Java程序的时候，并不是一次性把所有用到的class全部加载到内存，而是第一次需要用到class时才加载</p>
+<p>利用JVM动态加载<code>class</code>的特性，我们才能在运行期根据条件加载不同的实现类</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Commons Logging优先使用Log4j,大致实现思路</span></span><br><span class="line">LogFactory factory = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (isClassPresent(<span class="string">"org.apache.logging.log4j.Logger"</span>)) &#123;</span><br><span class="line">    factory = createLog4j();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    factory = createJdkLog();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isClassPresent</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Class.forName(name);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//只需要把Log4j的jar包放到classpath中，Commons Logging就会自动使用Log4j的原因</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-2-访问字段"><a href="#1-2-访问字段" class="headerlink" title="1.2 访问字段"></a>1.2 访问字段</h2><h3 id="1-2-1-通过Class实例获取字段信息"><a href="#1-2-1-通过Class实例获取字段信息" class="headerlink" title="1.2.1 通过Class实例获取字段信息"></a>1.2.1 通过<code>Class</code>实例获取字段信息</h3><table>
+<thead>
+<tr>
+<th>Field getField(name)</th>
+<th>根据字段名获取某个public的field（包括父类）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Field getDeclaredField(name)</td>
+<td>根据字段名获取当前类的某个field（不包括父类）<del>private也可获取</del></td>
+</tr>
+<tr>
+<td>Field[] getFields()</td>
+<td>获取所有public的field（包括父类）</td>
+</tr>
+<tr>
+<td>Field[] getDeclaredFields()</td>
+<td>获取当前类的所有field（不包括父类）</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-2-Field对象包含了一个字段的所有信息"><a href="#1-2-2-Field对象包含了一个字段的所有信息" class="headerlink" title="1.2.2  Field对象包含了一个字段的所有信息"></a>1.2.2  Field对象包含了一个字段的所有信息</h3><table>
+<thead>
+<tr>
+<th>getName()</th>
+<th>返回字段名称，例如，<code>&quot;name&quot;</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getType()</td>
+<td>返回字段类型，也是一个<code>Class</code>实例，例如，<code>String.class</code></td>
+</tr>
+<tr>
+<td>getModifiers()</td>
+<td>返回字段的修饰符<del>它是一个<code>int</code>，不同的bit表示不同的含义</del></td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//String类的value字段</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//获取字段信息</span></span><br><span class="line">Field f = String.class.getDeclaredField("value");</span><br><span class="line">f.getName(); <span class="comment">// "value"</span></span><br><span class="line">f.getType(); <span class="comment">// class [B 表示byte[]类型</span></span><br><span class="line"><span class="keyword">int</span> m = f.getModifiers();</span><br><span class="line">Modifier.isFinal(m); <span class="comment">// true</span></span><br><span class="line">Modifier.isPublic(m); <span class="comment">// false</span></span><br><span class="line">Modifier.isProtected(m); <span class="comment">// false</span></span><br><span class="line">Modifier.isPrivate(m); <span class="comment">// true</span></span><br><span class="line">Modifier.isStatic(m); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-3-获取字段值-Field-get-Object"><a href="#1-2-3-获取字段值-Field-get-Object" class="headerlink" title="1.2.3 获取字段值 Field.get(Object)"></a>1.2.3 获取字段值 Field.get(Object)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Object p = <span class="keyword">new</span> Person(<span class="string">"Xiao Ming"</span>);</span><br><span class="line">        Class c = p.getClass();</span><br><span class="line">        Field f = c.getDeclaredField(<span class="string">"name"</span>);</span><br><span class="line">        <span class="comment">//对于私有字段，需要setAccessible(true)</span></span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        Object value = f.get(p);</span><br><span class="line">        System.out.println(value); <span class="comment">// "Xiao Ming"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-4-设置字段值Field-set-Object-Object"><a href="#1-2-4-设置字段值Field-set-Object-Object" class="headerlink" title="1.2.4 设置字段值Field.set(Object, Object)"></a>1.2.4 设置字段值Field.set(Object, Object)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个Object参数是指定的实例，第二个Object参数是待修改的值</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person(<span class="string">"Xiao Ming"</span>);</span><br><span class="line">        System.out.println(p.getName()); <span class="comment">// "Xiao Ming"</span></span><br><span class="line">        Class c = p.getClass();</span><br><span class="line">        Field f = c.getDeclaredField(<span class="string">"name"</span>);</span><br><span class="line">        f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        f.set(p, <span class="string">"Xiao Hong"</span>);</span><br><span class="line">        System.out.println(p.getName()); <span class="comment">// "Xiao Hong"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-调用方法"><a href="#1-3-调用方法" class="headerlink" title="1.3 调用方法"></a>1.3 调用方法</h2><h3 id="1-3-1-获取Method信息"><a href="#1-3-1-获取Method信息" class="headerlink" title="1.3.1 获取Method信息"></a>1.3.1 获取Method信息</h3><table>
+<thead>
+<tr>
+<th>Method getMethod(name, Class…)</th>
+<th>获取某个<code>public</code>的<code>Method</code>（包括父类）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Method getDeclaredMethod(name, Class…)</td>
+<td>获取当前类的某个<code>Method</code>（不包括父类）</td>
+</tr>
+<tr>
+<td>Method[] getMethods()</td>
+<td>获取所有<code>public</code>的<code>Method</code>（包括父类）</td>
+</tr>
+<tr>
+<td>Method[] getDeclaredMethods()</td>
+<td>获取当前类的所有<code>Method</code>（不包括父类）</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Class stdClass = Student<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">        <span class="comment">// 获取public方法getScore，参数为String:</span></span><br><span class="line">        System.out.println(stdClass.getMethod(<span class="string">"getScore"</span>, String<span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">        <span class="comment">// 获取继承的public方法getName，无参数:</span></span><br><span class="line">        System.out.println(stdClass.getMethod(<span class="string">"getName"</span>));</span><br><span class="line">        <span class="comment">// 获取private方法getGrade，参数为int:</span></span><br><span class="line">        System.out.println(stdClass.getDeclaredMethod(<span class="string">"getGrade"</span>, <span class="keyword">int</span><span class="class">.<span class="keyword">class</span>))</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getScore</span><span class="params">(String type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">99</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getGrade</span><span class="params">(<span class="keyword">int</span> year)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Person"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//打印结果:</span></span><br><span class="line"><span class="comment">//public int Student.getScore(java.lang.String)</span></span><br><span class="line"><span class="comment">//public java.lang.String Person.getName()</span></span><br><span class="line"><span class="comment">//private int Student.getGrade(int)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-2-Method对象包含一个方法的所有信息"><a href="#1-3-2-Method对象包含一个方法的所有信息" class="headerlink" title="1.3.2 Method对象包含一个方法的所有信息"></a>1.3.2 Method对象包含一个方法的所有信息</h3><table>
+<thead>
+<tr>
+<th>getName()</th>
+<th>返回方法名称，例如：<code>&quot;getScore&quot;</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getReturnType()</td>
+<td>返回方法返回值类型，也是一个Class实例，例如：<code>String.class</code></td>
+</tr>
+<tr>
+<td>getParameterTypes()</td>
+<td>返回方法的参数类型，是一个Class数组，例如：<code>{String.class, int.class}</code></td>
+</tr>
+<tr>
+<td>getModifiers()</td>
+<td>返回方法的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-3-方法调用"><a href="#1-3-3-方法调用" class="headerlink" title="1.3.3 方法调用"></a>1.3.3 方法调用</h3><h4 id="1-3-3-1-调用一般方法-invoke-实例对象，方法参数"><a href="#1-3-3-1-调用一般方法-invoke-实例对象，方法参数" class="headerlink" title="1.3.3.1 调用一般方法[invoke(实例对象，方法参数)]"></a>1.3.3.1 调用一般方法[invoke(实例对象，方法参数)]</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//反射来调用substring方法</span></span><br><span class="line"><span class="comment">//单个参数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// String对象:</span></span><br><span class="line">        String s = <span class="string">"Hello world"</span>;</span><br><span class="line">        <span class="comment">// 获取String substring(int)方法，参数为int:</span></span><br><span class="line">        Method m = String.class.getMethod("substring", int.class);</span><br><span class="line">        <span class="comment">// 在s对象上调用该方法并获取结果:</span></span><br><span class="line">        String r = (String) m.invoke(s, <span class="number">6</span>);</span><br><span class="line">        <span class="comment">// 打印调用结果:</span></span><br><span class="line">        System.out.println(r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//多个参数之间用,隔开</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// String对象:</span></span><br><span class="line">        String s = <span class="string">"Hello world"</span>;</span><br><span class="line">        <span class="comment">// 获取String substring(int)方法，参数为int:</span></span><br><span class="line">        Method m = String.class.getMethod("substring", int.class, int.class);</span><br><span class="line">        <span class="comment">// 在s对象上调用该方法并获取结果:</span></span><br><span class="line">        String r = (String) m.invoke(s, <span class="number">4</span>, <span class="number">6</span>);</span><br><span class="line">        <span class="comment">// 打印调用结果:</span></span><br><span class="line">        System.out.println(r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//对Method实例调用invoke就相当于调用该方法，invoke的第一个参数是对象实例，即在哪个实例上调用该方法，后面的可变参数要与方法参数一致，否则将报错</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-3-2-调用静态方法-invoke-null，方法参数"><a href="#1-3-3-2-调用静态方法-invoke-null，方法参数" class="headerlink" title="1.3.3.2 调用静态方法[invoke(null，方法参数)]"></a>1.3.3.2 调用静态方法[invoke(null，方法参数)]</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果获取到的Method表示一个静态方法，调用静态方法时，由于无需指定实例对象，所以invoke方法传入的第一个参数永远为null</span></span><br><span class="line"><span class="comment">//调用Integer.parseInt(String)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 获取Integer.parseInt(String)方法，参数为String:</span></span><br><span class="line">        Method m = Integer.class.getMethod("parseInt", String.class);</span><br><span class="line">        <span class="comment">// 调用该静态方法并获取结果:</span></span><br><span class="line">        Integer n = (Integer) m.invoke(<span class="keyword">null</span>, <span class="string">"12345"</span>);</span><br><span class="line">        <span class="comment">// 打印调用结果:</span></span><br><span class="line">        System.out.println(n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-3-3-3-调用非public方法Method-setAccessible-true"><a href="#1-3-3-3-调用非public方法Method-setAccessible-true" class="headerlink" title="1.3.3.3 调用非public方法Method.setAccessible(true)"></a>1.3.3.3 调用非public方法Method.setAccessible(true)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//和Field类似，对于非public方法，我们虽然可以通过Class.getDeclaredMethod()获取该方法实例，但直接对其调用将得到一个IllegalAccessException。为了调用非public方法，我们通过Method.setAccessible(true)允许其调用</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person();</span><br><span class="line">        Method m = p.getClass().getDeclaredMethod(<span class="string">"setName"</span>, String<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        m.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        m.invoke(p, <span class="string">"Bob"</span>);</span><br><span class="line">        System.out.println(p.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//此外，setAccessible(true)可能会失败。如果JVM运行期存在SecurityManager，那么它会根据规则进行检查，有可能阻止setAccessible(true)。例如，某个SecurityManager可能不允许对java和javax开头的package的类调用setAccessible(true)，这样可以保证JVM核心库的安全</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-4-多态-遵循多态原则"><a href="#1-3-4-多态-遵循多态原则" class="headerlink" title="1.3.4 多态[遵循多态原则]"></a>1.3.4 多态[遵循多态原则]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 获取Person的hello方法:</span></span><br><span class="line">        Method h = Person.class.getMethod("hello");</span><br><span class="line">        <span class="comment">// 对Student实例调用hello方法:</span></span><br><span class="line">        h.invoke(<span class="keyword">new</span> Student());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Person:hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Student:hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//打印结果:</span></span><br><span class="line"><span class="comment">//Student:hello </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用反射调用方法时，仍然遵循多态原则：即总是调用实际类型的覆写方法（如果存在）</span></span><br><span class="line">Method m = Person.class.getMethod("hello");</span><br><span class="line">m.invoke(<span class="keyword">new</span> Student());</span><br><span class="line"><span class="comment">//相当于</span></span><br><span class="line">Person p = <span class="keyword">new</span> Student();</span><br><span class="line">p.hello();</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-调用构造方法"><a href="#1-4-调用构造方法" class="headerlink" title="1.4 调用构造方法"></a>1.4 调用构造方法</h2><h3 id="1-4-1-获取Constructor对象"><a href="#1-4-1-获取Constructor对象" class="headerlink" title="1.4.1 获取Constructor对象"></a>1.4.1 获取Constructor对象</h3><table>
+<thead>
+<tr>
+<th>getConstructor(Class…)</th>
+<th>获取某个<code>public</code>的<code>Constructor</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getDeclaredConstructor(Class…)</td>
+<td>获取某个<code>Constructor</code></td>
+</tr>
+<tr>
+<td>getConstructors()</td>
+<td>获取所有<code>public</code>的<code>Constructor</code></td>
+</tr>
+<tr>
+<td>getDeclaredConstructors()</td>
+<td>获取所有<code>Constructor</code></td>
+</tr>
+</tbody></table>
+<h3 id="1-4-2-创建实例对象newInstance"><a href="#1-4-2-创建实例对象newInstance" class="headerlink" title="1.4.2 创建实例对象newInstance()"></a>1.4.2 创建实例对象newInstance()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 获取构造方法Integer(int):</span></span><br><span class="line">        Constructor cons1 = Integer<span class="class">.<span class="keyword">class</span>.<span class="title">getConstructor</span>(<span class="title">int</span>.<span class="title">class</span>)</span>;</span><br><span class="line">        <span class="comment">// 调用构造方法:</span></span><br><span class="line">        Integer n1 = (Integer) cons1.newInstance(<span class="number">123</span>);</span><br><span class="line">        System.out.println(n1);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取构造方法Integer(String)</span></span><br><span class="line">        Constructor cons2 = Integer<span class="class">.<span class="keyword">class</span>.<span class="title">getConstructor</span>(<span class="title">String</span>.<span class="title">class</span>)</span>;</span><br><span class="line">        Integer n2 = (Integer) cons2.newInstance(<span class="string">"456"</span>);</span><br><span class="line">        System.out.println(n2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//即便不获取Constructor对象,直接通过xxx.class.newInstance()也是可以的。但这样的局限是，它只能调用该类的public无参数构造方法。如果构造方法带有参数，或者不是public，就无法直接通过Class.newInstance()来调用。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-3-调用非-public-的Constructor-Constructor-setAccessible-true"><a href="#1-4-3-调用非-public-的Constructor-Constructor-setAccessible-true" class="headerlink" title="1.4.3 调用非 public 的Constructor[Constructor.setAccessible(true)]"></a>1.4.3 调用非 public 的Constructor[Constructor.setAccessible(true)]</h3><blockquote>
+<p><code>setAccessible(true)</code>设置允许访问。<code>setAccessible(true)</code>可能会失败</p>
+</blockquote>
+<h3 id="1-4-4-无多态问题"><a href="#1-4-4-无多态问题" class="headerlink" title="1.4.4 无多态问题"></a>1.4.4 无多态问题</h3><blockquote>
+<p><code>Constructor</code>总是当前类定义的构造方法，和父类无关，因此不存在多态的问题</p>
+</blockquote>
+<h1 id="2-日期与时间"><a href="#2-日期与时间" class="headerlink" title="2.日期与时间"></a>2.日期与时间</h1><h1 id="3-多线程"><a href="#3-多线程" class="headerlink" title="3.多线程"></a>3.多线程</h1><p>转载于<a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1304521607217185" target="_blank" rel="noopener">廖雪峰博客</a></p>
+<blockquote>
+<p>进程和线程:一个<strong>进程</strong>可以包含一个或多个<strong>线程</strong>，但至少会有一个<strong>线程</strong>。即进程和线程是包含关系，但是多任务既可以由多进程实现，也可以由单进程内的多线程实现，还可以混合多进程＋多线程</p>
+</blockquote>
+<blockquote>
+<p>多进程缺点：</p>
+<ul>
+<li>创建进程比创建线程开销大，尤其是在Windows系统上；</li>
+<li>进程间通信比线程间通信要慢，因为线程间通信就是读写同一个变量，速度很快。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>多进程优点：</p>
+<ul>
+<li>多进程稳定性比多线程高，因为在多进程的情况下，一个进程崩溃不会影响其他进程，而在多线程的情况下，任何一个线程崩溃会直接导致整个进程崩溃。</li>
+</ul>
+</blockquote>
+<h2 id="2-1-创建新线程"><a href="#2-1-创建新线程" class="headerlink" title="2.1 创建新线程"></a>2.1 创建新线程</h2><blockquote>
+<p>1.继承Thread类</p>
+<p>2.实现Runnable接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> MyThread();</span><br><span class="line">        t.start(); <span class="comment">// 启动新线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"start new thread!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> MyRunnable());</span><br><span class="line">        t.start(); <span class="comment">// 启动新线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRunnable</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"start new thread!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//lambda语法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"start new thread!"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        t.start(); <span class="comment">// 启动新线程</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-1-1-run-和start"><a href="#2-1-1-run-和start" class="headerlink" title="2.1.1 run()和start()"></a>2.1.1 run()和start()</h3><blockquote>
+<p>调用<code>Thread</code>实例的<code>start()</code>方法才是启动新线程</p>
+<ul>
+<li>查看<code>Thread</code>类的源代码，会看到<code>start()</code>方法内部调用了一个<code>private native void start0()</code>方法，<code>native</code>修饰符表示这个方法是由JVM虚拟机内部的C代码实现的，不是由Java代码实现的</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>调用<code>run()</code>方法，相当于调用了一个普通的Java方法，当前线程并没有任何改变，也不会启动新线程</p>
+</blockquote>
+<h3 id="2-1-2-线程的优先级"><a href="#2-1-2-线程的优先级" class="headerlink" title="2.1.2 线程的优先级"></a>2.1.2 线程的优先级</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设定优先级</span></span><br><span class="line"><span class="comment">//优先级高的线程被操作系统调度的优先级较高，操作系统对高优先级线程可能调度更频繁，但我们决不能通过设置优先级来确保高优先级的线程一定会先执行。</span></span><br><span class="line">Thread.setPriority(<span class="keyword">int</span> n) <span class="comment">// 1~10, 默认值5</span></span><br></pre></td></tr></table></figure>
+
+<p>==注意：当一个新的线程启动以后，它就由操作系统调度，程序本身无法确定线程的调度顺序==</p>
+<h2 id="2-2-线程状态"><a href="#2-2-线程状态" class="headerlink" title="2.2  线程状态"></a>2.2  线程状态</h2><table>
+<thead>
+<tr>
+<th align="center">New</th>
+<th align="left">新创建的线程，尚未执行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Runnable</td>
+<td align="left">运行中的线程，正在执行<code>run()</code>方法的Java代码</td>
+</tr>
+<tr>
+<td align="center">Blocked</td>
+<td align="left">运行中的线程，因为某些操作被阻塞而挂起</td>
+</tr>
+<tr>
+<td align="center">Waiting</td>
+<td align="left">运行中的线程，因为某些操作在等待中</td>
+</tr>
+<tr>
+<td align="center">Timed Waiting</td>
+<td align="left">运行中的线程，因为执行<code>sleep()</code>方法正在计时等待</td>
+</tr>
+<tr>
+<td align="center">Terminated</td>
+<td align="left">线程已终止，因为<code>run()</code>方法执行完毕</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-1-线程中止原因"><a href="#2-2-1-线程中止原因" class="headerlink" title="2.2.1 线程中止原因"></a>2.2.1 线程中止原因</h3><table>
+<thead>
+<tr>
+<th>线程正常终止</th>
+<th><code>run()</code>方法执行到<code>return</code>语句返回</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线程意外终止</td>
+<td><code>run()</code>方法因为未捕获的异常导致线程终止</td>
+</tr>
+<tr>
+<td><del>对某个线程的<code>Thread</code>实例调用<code>stop()</code>方法强制终止</del></td>
+<td>不推荐使用</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-2-join"><a href="#2-2-2-join" class="headerlink" title="2.2.2   join()"></a>2.2.2   join()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        System.out.println(<span class="string">"start"</span>);</span><br><span class="line">        t.start();</span><br><span class="line">        t.join();</span><br><span class="line">        System.out.println(<span class="string">"end"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">hello</span></span><br><span class="line"><span class="comment">start</span></span><br><span class="line"><span class="comment">end</span></span><br><span class="line"><span class="comment">/</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>join()</th>
+<th>对另一个线程对象调用<code>join()</code>方法可以等待其执行结束</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线程结束调用join()</td>
+<td>对已经运行结束的线程调用<code>join()</code>方法会立刻返回</td>
+</tr>
+<tr>
+<td>join(long)</td>
+<td>指定等待时间，超过等待时间线程仍然没有结束就不再等待</td>
+</tr>
+</tbody></table>
+<h2 id="2-3-中断线程interrupt"><a href="#2-3-中断线程interrupt" class="headerlink" title="2.3 中断线程interrupt()"></a>2.3 中断线程interrupt()</h2>
 </div>
 
 
