@@ -10,7 +10,7 @@
   
   <title>
     
-      onechat
+      vue-manual | onechat
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -153,8 +153,8 @@
 </header>
 
     <div id="article-banner">
-  <h2></h2>
-  <p class="post-date">2020-07-21</p>
+  <h2>vue-manual</h2>
+  <p class="post-date">2020-07-16</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -162,13 +162,32 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p><strong>JVM 从入门到精通</strong></p>
-</section>
+    <section class="markdown-content"></section>
     <!-- Tags START -->
     
     <!-- Tags END -->
     <!-- NAV START -->
     
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/java8/">
+        <span class="nav-arrow">← </span>
+        
+          java8
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/jvm_manual/">
+        
+          jvm_manual
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
     <!-- NAV END -->
     <!-- 打赏 START -->
     
@@ -221,7 +240,7 @@
 
 <script>
   (function () {
-    var url = 'https://coolhermit.github.io/JVM/JVM 从入门到精通.html';
+    var url = 'https://coolhermit.github.io/vue-manual/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -283,7 +302,7 @@
     var gitmentConfig = "yanm1ng";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "",
+        id: "vue-manual",
         owner: "yanm1ng",
         repo: "yanm1ng.github.io",
         oauth: {
