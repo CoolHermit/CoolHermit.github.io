@@ -76,6 +76,13 @@
       <div class="logo"></div>
       <span>onechat</span>
     </a>
+    <section>
+        <span class="h1"><a href="#">����</a></span>
+        <div id="site_search">
+        <input type="text" id="local-search-input" style="width: 200px;" results="0"/>
+        <div id="local-search-result"></div>
+        </div>
+    </section>
     <ul class="right-list">
       
         <li class="list-item">
@@ -151,7 +158,15 @@
     </div>
   </div>
 </header>
-
+<script src="/js/search.js></script>"
+<script type="text/javascript">      
+     var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
     <div id="about-banner" style="background-image: url(http://file.muyutech.com/about.jpg)"></div>
 <div class="author">
   <div class="head">

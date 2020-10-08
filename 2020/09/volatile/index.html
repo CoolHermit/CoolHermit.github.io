@@ -10,7 +10,7 @@
   
   <title>
     
-      onechat
+      volatile | onechat
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -168,8 +168,8 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
 </script>
     <div id="article-banner">
-  <h2></h2>
-  <p class="post-date">2020-07-26</p>
+  <h2>volatile</h2>
+  <p class="post-date">2020-09-19</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -177,13 +177,51 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p><a href="">命令大全</a></p>
+    <section class="markdown-content"><h1 id="1-引言-初露头角"><a href="#1-引言-初露头角" class="headerlink" title="1.引言-初露头角"></a>1.引言-初露头角</h1><p>​    其实刚开始接触Java时，看到<code>volatile</code>关键字时就不由得头大，当时点进去相关的博文，基本一上来就点题，即<code>保证内存可见性，防止指令重排序</code>，我当时就一菜鸟，每个字能看懂，合在一块就成天书了。当然了，现在来看这句话，的确是简明扼要的点中了<code>JDK5</code>增强以后的<code>volatile</code>所要表示的含义！话不多说，我们一起来看看<code>volatile</code>的秘密吧！</p>
+<p>​    数学题中，一个题目越短，基本上这个题目就越难（别杠啊！打比方而已），为什么？题目越短，你能获取的信息就越少；同样，在Java中，像<code>volatile</code>、<code>synchronized</code>等，仅靠一个关键字就能保证多线程下的安全性，我们想要了解它，就必须向下深挖。所以在深入volatile之前，我们来谈谈几个重要的知识，<code>Java 的内存模型（JMM）</code>、<code>重排序</code>以及<code>happens-before规则</code>。</p>
+<blockquote>
+<p>Tips:因为涉及到底层的知识较多，博文篇幅可能较长。为了方便阅读，我会把相应的知识点单独成篇，在本篇里对相应技术点进行精简，只做结论性介绍。想要了解更多对应知识点，进入对应专栏阅读即可！</p>
+</blockquote>
+<h1 id="2-JMM"><a href="#2-JMM" class="headerlink" title="2.JMM"></a>2.JMM</h1><p>​    </p>
 </section>
     <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#Java" >
+    <span class="tag-code">Java</span>
+  </a>
+
+  <a href="/tags#并发" >
+    <span class="tag-code">并发</span>
+  </a>
+
+      </div>
     
     <!-- Tags END -->
     <!-- NAV START -->
     
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2020/09/Spring-Annoatation/">
+        <span class="nav-arrow">← </span>
+        
+          Spring注解开发手册
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2020/10/2020-10-04-%E5%A6%82%E4%BD%95%E4%BB%8E%E5%80%A6%E6%80%A0%E7%9A%84JVM%E4%B8%AD%E8%B7%B3%E5%87%BA%E6%9D%A5%E5%B9%B6%E6%8B%A5%E6%8A%B1%E4%B8%8A%E4%BA%86%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">
+        
+          如何从倦怠的JVM中跳出来并拥抱上了前端框架
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
     <!-- NAV END -->
     <!-- 打赏 START -->
     
@@ -226,7 +264,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="nav">none</ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#1-引言-初露头角"><span class="toc-nav-text">1.引言-初露头角</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2-JMM"><span class="toc-nav-text">2.JMM</span></a></li></ol>
     
   </div>
 </aside>
@@ -236,7 +274,7 @@
 
 <script>
   (function () {
-    var url = 'https://coolhermit.github.io/tags/Linux/index.html';
+    var url = 'https://coolhermit.github.io/2020/09/volatile/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -298,7 +336,7 @@
     var gitmentConfig = "CoolHermit";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "",
+        id: "volatile",
         owner: "CoolHermit",
         repo: "CoolHermit.github.io",
         oauth: {

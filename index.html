@@ -76,6 +76,13 @@
       <div class="logo"></div>
       <span>onechat</span>
     </a>
+    <section>
+        <span class="h1"><a href="#">����</a></span>
+        <div id="site_search">
+        <input type="text" id="local-search-input" style="width: 200px;" results="0"/>
+        <div id="local-search-result"></div>
+        </div>
+    </section>
     <ul class="right-list">
       
         <li class="list-item">
@@ -151,8 +158,88 @@
     </div>
   </div>
 </header>
-
+<script src="/js/search.js></script>"
+<script type="text/javascript">      
+     var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
     <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/10/2020-10-08-Hexo%E7%9A%84%E6%90%9C%E7%B4%A2%E5%AE%9E%E7%8E%B0%E4%B9%8B-hexo-generator-search/">Hexo的搜索实现之 hexo-generator-search</a>
+      </h2>
+      <p class="article-date">2020年10月8日</p>
+      
+        
+  <a href="/tags#关于本站" >
+    <span class="tag-code">关于本站</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          转载于https://www.hahack.com/codes/local-search-engine-for-hexo/
+1. 安装和配置 hexo-generator-search1$ npm install --save hexo-generator-search
+
+然后，在站点根 _ ...
+        
+      </div>
+      <a class="more" href="/2020/10/2020-10-08-Hexo%E7%9A%84%E6%90%9C%E7%B4%A2%E5%AE%9E%E7%8E%B0%E4%B9%8B-hexo-generator-search/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/10/2020-10-04-%E5%A6%82%E4%BD%95%E4%BB%8E%E5%80%A6%E6%80%A0%E7%9A%84JVM%E4%B8%AD%E8%B7%B3%E5%87%BA%E6%9D%A5%E5%B9%B6%E6%8B%A5%E6%8A%B1%E4%B8%8A%E4%BA%86%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">如何从倦怠的JVM中跳出来并拥抱上了前端框架</a>
+      </h2>
+      <p class="article-date">2020年10月4日</p>
+      
+        
+  <a href="/tags#杂谈" >
+    <span class="tag-code">杂谈</span>
+  </a>
+
+  <a href="/tags#Vue" >
+    <span class="tag-code">Vue</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          引言​    说是引言，但其实已是全部。
+​    这两天花了不多不少的时间把Vue系统地学习了一遍，之前用到Vue的地方还不少，不懂的地方就百度一下，其它的也凭着之前的感觉与经验慢慢地磨了下来，用的大多都是github上down下来的框架，这里添两行，那里去一下，一个run，跑得起来自然最 ...
+        
+      </div>
+      <a class="more" href="/2020/10/2020-10-04-%E5%A6%82%E4%BD%95%E4%BB%8E%E5%80%A6%E6%80%A0%E7%9A%84JVM%E4%B8%AD%E8%B7%B3%E5%87%BA%E6%9D%A5%E5%B9%B6%E6%8B%A5%E6%8A%B1%E4%B8%8A%E4%BA%86%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2020/09/volatile/">volatile</a>
+      </h2>
+      <p class="article-date">2020年9月19日</p>
+      
+        
+  <a href="/tags#Java" >
+    <span class="tag-code">Java</span>
+  </a>
+
+  <a href="/tags#并发" >
+    <span class="tag-code">并发</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1.引言-初露头角​    其实刚开始接触Java时，看到volatile关键字时就不由得头大，当时点进去相关的博文，基本一上来就点题，即保证内存可见性，防止指令重排序，我当时就一菜鸟，每个字能看懂，合在一块就成天书了。当然了，现在来看这句话，的确是简明扼要的点中了JDK5增强以后的vola ...
+        
+      </div>
+      <a class="more" href="/2020/09/volatile/">Read more</a>
+    </article>
   
     <article class="article-card">
       <h2 class="article-head">
@@ -284,24 +371,16 @@ excludeFilters = ...
       <a class="more" href="/2020/06/06/mysql-manual/">Read more</a>
     </article>
   
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2020/06/06/aboutBlog/">2020/06/06/aboutBlog</a>
-      </h2>
-      <p class="article-date">2020年7月16日</p>
-      
-      <div class="article-summary">
-        
-          建站流程？具体可参考Hexo官网
-(1) 基础环境搭建(安装node、git和npm/cnpm),具体操作参考官网，不做演示
-(2) 博客环境搭建
-123456# 安装hexo# -g 表示全局安装$ cnpm install -g hexo-cli# 初始化# your_blog_name ...
-        
-      </div>
-      <a class="more" href="/2020/06/06/aboutBlog/">Read more</a>
-    </article>
-  
 
+  
+    <div class="guide-pager">
+  
+    <a class="unvisible" href="/"><span class="page-arrow">←</span> Prev</a>
+  
+  
+    <a href="/page/2/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
   
 </main>
 

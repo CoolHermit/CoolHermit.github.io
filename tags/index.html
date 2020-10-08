@@ -76,6 +76,13 @@
       <div class="logo"></div>
       <span>onechat</span>
     </a>
+    <section>
+        <span class="h1"><a href="#">����</a></span>
+        <div id="site_search">
+        <input type="text" id="local-search-input" style="width: 200px;" results="0"/>
+        <div id="local-search-result"></div>
+        </div>
+    </section>
     <ul class="right-list">
       
         <li class="list-item">
@@ -151,7 +158,15 @@
     </div>
   </div>
 </header>
-
+<script src="/js/search.js></script>"
+<script type="text/javascript">      
+     var search_path = "search.xml";
+     if (search_path.length == 0) {
+     	search_path = "search.xml";
+     }
+     var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+</script>
     <div id="article-banner">
   <h2>Tags</h2>
   <p class="post-date">标签检索</p>
@@ -159,16 +174,81 @@
 <main class="app-body">
   <div id="tag-cloud">
     
-      <a class="tag2" data-name="tag-Spring">Spring</a>
+      <a class="tag2" data-name="tag-杂谈">杂谈</a>
+    
+      <a class="tag3" data-name="tag-Vue">Vue</a>
+    
+      <a class="tag2" data-name="tag-关于本站">关于本站</a>
+    
+      <a class="tag1" data-name="tag-Spring">Spring</a>
+    
+      <a class="tag1" data-name="tag-Java">Java</a>
+    
+      <a class="tag1" data-name="tag-并发">并发</a>
     
   </div>
   
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-杂谈">杂谈</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2020/10/2020-10-04-如何从倦怠的JVM中跳出来并拥抱上了前端框架/">如何从倦怠的JVM中跳出来并拥抱上了前端框架</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-Vue">Vue</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2020/10/2020-10-04-如何从倦怠的JVM中跳出来并拥抱上了前端框架/">如何从倦怠的JVM中跳出来并拥抱上了前端框架</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-关于本站">关于本站</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2020/10/2020-10-08-Hexo的搜索实现之-hexo-generator-search/">Hexo的搜索实现之 hexo-generator-search</a>
+          </li>
+        </ul>
+        
+    </div>
+    
     <div class="tag-list">
       <h3 class="tag-name" id="tag-Spring">Spring</h3>
       
         <ul class="tag-preview">
           <li>
             <a href="/2020/09/Spring-Annoatation/">Spring注解开发手册</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-Java">Java</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2020/09/volatile/">volatile</a>
+          </li>
+        </ul>
+        
+    </div>
+    
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-并发">并发</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2020/09/volatile/">volatile</a>
           </li>
         </ul>
         
