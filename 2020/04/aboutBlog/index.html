@@ -10,7 +10,7 @@
   
   <title>
     
-      2020/06/06/java8 | onechat
+      2020/04/aboutBlog | onechat
     
   </title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -153,7 +153,7 @@
 </header>
 
     <div id="article-banner">
-  <h2>2020/06/06/java8</h2>
+  <h2>2020/04/aboutBlog</h2>
   <p class="post-date">2020-07-16</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
@@ -162,7 +162,20 @@
 <main class="app-body flex-box">
   <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><h1 id="1-函数式编程"><a href="#1-函数式编程" class="headerlink" title="1.函数式编程"></a>1.函数式编程</h1><h2 id="1-1-Lambda基础"><a href="#1-1-Lambda基础" class="headerlink" title="1.1 Lambda基础"></a>1.1 Lambda基础</h2></section>
+    <section class="markdown-content"><h1 id="建站流程？"><a href="#建站流程？" class="headerlink" title="建站流程？"></a>建站流程？</h1><p>具体可参考<a href="www.hexocn.cn">Hexo官网</a></p>
+<p>(1) 基础环境搭建(安装node、git和npm/cnpm),具体操作参考官网，不做演示</p>
+<p>(2) 博客环境搭建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装hexo</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -g 表示全局安装</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cnpm install -g hexo-cli</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 初始化</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> your_blog_name 表示博客根目录</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo init your_blog_name</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？"><a href="#关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？" class="headerlink" title="关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？"></a>关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？</h1><p>(1) 修改hexo中 _config.yml 文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">http://yoursite.com</span></span><br><span class="line"><span class="comment"># root 后面写你 github 仓库的名字</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/XXX.github.io</span></span><br></pre></td></tr></table></figure>
+
+<p>(2) 重新上传</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g </span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1></section>
     <!-- Tags START -->
     
     <!-- Tags END -->
@@ -171,17 +184,17 @@
   <div class="nav-container">
     <!-- reverse left and right to put prev and next in a more logic postition -->
     
-      <a class="nav-left" href="/2020/06/06/java-manual/">
+      <a class="nav-left" href="/2020/07/ecsAttacked/">
         <span class="nav-arrow">← </span>
         
-          2020/06/06/java-manual
+          记一次云服务器被攻击&amp;MySQL访问权限修改
         
       </a>
     
     
-      <a class="nav-right" href="/2020/06/06/vue-manual/">
+      <a class="nav-right" href="/2020/05/mysql-manual/">
         
-          2020/06/06/vue-manual
+          2020/05/mysql-manual
         
         <span class="nav-arrow"> →</span>
       </a>
@@ -230,7 +243,7 @@
   <div class="toc-main">
     <strong class="toc-title">Catalog</strong>
     
-      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#1-函数式编程"><span class="toc-nav-text">1.函数式编程</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-1-Lambda基础"><span class="toc-nav-text">1.1 Lambda基础</span></a></li></ol></li></ol>
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#建站流程？"><span class="toc-nav-text">建站流程？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？"><span class="toc-nav-text">关于hexo本地启动正常但部署时出现样式（CSS、JS等）未加载问题？</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#"><span class="toc-nav-text"></span></a></li></ol>
     
   </div>
 </aside>
@@ -240,7 +253,7 @@
 
 <script>
   (function () {
-    var url = 'https://coolhermit.github.io/2020/06/06/java8/';
+    var url = 'https://coolhermit.github.io/2020/04/aboutBlog/';
     var banner = ''
     if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
@@ -302,7 +315,7 @@
     var gitmentConfig = "CoolHermit";
     if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
-        id: "2020/06/06/java8",
+        id: "2020/04/aboutBlog",
         owner: "CoolHermit",
         repo: "CoolHermit.github.io",
         oauth: {
