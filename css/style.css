@@ -497,7 +497,6 @@ h2.article-head {
 }
 .markdown-content,
 .article-summary {
-  margin-left: 30px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -937,7 +936,7 @@ h2.article-head {
 }
 .catalog-container {
   display: block;
-  margin-left: 20px;
+  margin-left: 10px;
   flex-basis: 280px;
   -webkit-flex-basis: 280px;
   flex-shrink: 0;
