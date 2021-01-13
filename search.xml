@@ -42,6 +42,25 @@
     
     
     <entry>
+      <title>git常用命令</title>
+      <link href="2020/11/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/"/>
+      <url>2020/11/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-初始化仓库"><a href="#1-初始化仓库" class="headerlink" title="1.初始化仓库"></a>1.初始化仓库</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init # 当前目录初始化</span><br></pre></td></tr></table></figure><h1 id="2-查看仓库状态"><a href="#2-查看仓库状态" class="headerlink" title="2.查看仓库状态"></a>2.查看仓库状态</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure><h1 id="3-文件加入暂存区"><a href="#3-文件加入暂存区" class="headerlink" title="3.文件加入暂存区"></a>3.文件加入暂存区</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add your_file_name</span><br></pre></td></tr></table></figure><h1 id="4-文件提交"><a href="#4-文件提交" class="headerlink" title="4.文件提交"></a>4.文件提交</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git commit -m "your_commit_message"</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">git commit # 不加m会打开vi编辑器添加备注</span><br><span class="line"></span><br><span class="line">git commit --amend # 修改提交备注</span><br></pre></td></tr></table></figure><h1 id="5-查看提交日志"><a href="#5-查看提交日志" class="headerlink" title="5.查看提交日志"></a>5.查看提交日志</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> git <span class="built_in">log</span> 只显示当前分支的 commit ,不能查看已经删除的 commit 的日志</span></span><br><span class="line">git log</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">git log --pretty=short #简略日志信息</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">git log your_file_name #查看特定文件提交日志</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">git log -p your_file_name #查看提交时文件的变化</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">git log --graph # 以图表方式查看分支</span><br><span class="line"></span><br><span class="line">git reflog # 显示整个本地仓库的 commit,包括所有 branch 的 commit , 甚至包括已经撤销的 commit</span><br></pre></td></tr></table></figure><h1 id="6-查看更改差异"><a href="#6-查看更改差异" class="headerlink" title="6.查看更改差异"></a>6.查看更改差异</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git diff #工作区和暂存区</span><br><span class="line">git diff HEAD #工作区和本地仓库</span><br></pre></td></tr></table></figure><h1 id="7-压缩提交历史"><a href="#7-压缩提交历史" class="headerlink" title="7.压缩提交历史"></a>7.压缩提交历史</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rebase -i</span><br></pre></td></tr></table></figure><h1 id="8-代码撤销"><a href="#8-代码撤销" class="headerlink" title="8.代码撤销"></a>8.代码撤销</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- your_file_name # 工作区代码撤销</span><br><span class="line"></span><br><span class="line">git reset HEAD # 暂存区代码撤销</span><br><span class="line"></span><br><span class="line">git reset --hard &lt;版本号&gt; # 本地仓库代码撤销</span><br><span class="line">git reset --hard HEAD^^ # 向前回退两个版本</span><br><span class="line">git reset --hard HEAD~1 # 回到上一个版本</span><br><span class="line">git reset --hard 5e367 # 回退到提交的版本号为5e367状态</span><br></pre></td></tr></table></figure><h1 id="9-分支"><a href="#9-分支" class="headerlink" title="9.分支"></a>9.分支</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git branch # 查看分支</span><br><span class="line">git branch &lt;分支名&gt; # 分支创建</span><br><span class="line">git checkout &lt;分支名&gt; # 切换分支</span><br><span class="line">git checkout -b &lt;分支名&gt; # 创建并切换分支</span><br><span class="line">git checkout - # 切换回上一个分支</span><br><span class="line"></span><br><span class="line">git merge --no-ff &lt;分支名&gt; # 分支合并，no-ff 表示强行关闭 fast-forward 方式， fast-forward 方式表示当条件允许时， git 直接把 HEAD 指针指向合并分支的头，完成合并，这种方式合并速度快，但是在整个过程中没有创建 commit，所以如果当我们删除掉这个分支时就再也找不回来了</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Spring源码(二)之AOP</title>
       <link href="2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%BA%8C)%E4%B9%8BAOP/"/>
       <url>2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%BA%8C)%E4%B9%8BAOP/</url>
@@ -64,8 +83,8 @@
     
     <entry>
       <title>Spring源码(一)之容器创建</title>
-      <link href="2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%89)%E4%B9%8BIOC/"/>
-      <url>2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%89)%E4%B9%8BIOC/</url>
+      <link href="2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%80)%E4%B9%8B%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA/"/>
+      <url>2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%80)%E4%B9%8B%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -85,8 +104,8 @@
     
     <entry>
       <title>Spring源码(一)之容器创建</title>
-      <link href="2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%80)%E4%B9%8B%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA/"/>
-      <url>2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%80)%E4%B9%8B%E5%AE%B9%E5%99%A8%E5%88%9B%E5%BB%BA/</url>
+      <link href="2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%89)%E4%B9%8BIOC/"/>
+      <url>2020/10/2020-10-27-Spring%E6%BA%90%E7%A0%81(%E4%B8%89)%E4%B9%8BIOC/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -166,32 +185,11 @@
     
     
     <entry>
-      <title>Netty</title>
-      <link href="2020/05/java8/"/>
-      <url>2020/05/java8/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> Netty </tag>
-            
-            <tag> NIO </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>最近有点烦有点烦...</title>
+      <title>首先要开个头...</title>
       <link href="2020/10/2020-10-04-%E5%A6%82%E4%BD%95%E4%BB%8E%E5%80%A6%E6%80%A0%E7%9A%84JVM%E4%B8%AD%E8%B7%B3%E5%87%BA%E6%9D%A5%E5%B9%B6%E6%8B%A5%E6%8A%B1%E4%B8%8A%E4%BA%86%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"/>
       <url>2020/10/2020-10-04-%E5%A6%82%E4%BD%95%E4%BB%8E%E5%80%A6%E6%80%A0%E7%9A%84JVM%E4%B8%AD%E8%B7%B3%E5%87%BA%E6%9D%A5%E5%B9%B6%E6%8B%A5%E6%8A%B1%E4%B8%8A%E4%BA%86%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/</url>
       
-        <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>​    说是引言，但其实已是全部。</p><p>​    照例来张图，”图文并茂”，欧耶！</p><p><img src="https://gitee.com/fagefocus/images/raw/mdPicture//xiaoxin_19.png" alt=""></p><p>​    </p>]]></content>
+        <content type="html"><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>​    “再等等…”，对于现在的我来说，这是个病了噻！</p><p>​    应该早就有这毛病了，以前，身边总有人，无论是家人，老师，同学在推着我前进，才导致这个苗头不太盛。有时候想想，是不是自己不自信，这又好像有点矛盾，因为自我感觉还可以</p><p>​    自信要有能力支撑才行噻，能力跟不上，光有自信顶个球用啊</p><p>​    是啊！我晓得滴，可是有时候就是提不起劲来嘛！</p><p>​    所以古人才说，“万事开头难”嘛!既然你的认知和能力还不够，那就别想那么多，抄起家伙，撸起袖子，咔咔往上怼。待你眼界足够跨越 面前的围墙看到更广阔的世界，再去思考噻！</p><p><img src="https://gitee.com/fagefocus/images/raw/mdPicture//xiaoxin_19.png" alt=""></p><p>​    </p>]]></content>
       
       
       
@@ -217,6 +215,27 @@
         <tags>
             
             <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Netty</title>
+      <link href="2020/05/java8/"/>
+      <url>2020/05/java8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Netty </tag>
+            
+            <tag> NIO </tag>
             
         </tags>
       
